@@ -11,21 +11,10 @@ class Bot_OLX:
 
 		self.driver = webdriver.Chrome(executable_path = r'./chromedriver.exe')
 
-		self.driver.get('https://www.olx.com.br/')
-
 
 	def buscar(self, produto):
 
-		#Obtendo o caixa de pesquisa
-		busca = self.driver.find_element_by_tag_name('input')
-		#inserindo o produto no input
-		busca.send_keys(f'{produto}')
-		#obtendo o botao de pesquisar
-		btn_buscar = self.driver.find_element_by_tag_name('#___gatsby > div.bigger-grid-style > div.iza-top > div.iza-container.container > div:nth-child(1) > div > div > div > div.searchButtonBox > button')
-
-		self.action = ActionChains(self.driver)
-		#clicando no botão pesquisar
-		self.action.move_to_element(btn_buscar).click().perform()
+		self.driver.get(f'https://www.olx.com.br/brasil?q={produto}')
 		#obtendo lista com cada resultado da primeira página(50 elementos)
 		lista = self.driver.find_elements_by_tag_name('#ad-list > li > a > div')
 		#obtendo o link da postagem de cada produto
